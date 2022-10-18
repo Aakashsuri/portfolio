@@ -1,0 +1,115 @@
+backend:
+  name: github
+  branch: master
+  repo: aakashsuri/suri-portfolio
+  site_domain: aakashsuri.com
+  commit_messages:
+    create: "content: create {{collection}} \"{{slug}}\""
+    update: "content: update {{collection}} \"{{slug}}\""
+    delete: "content: delete {{collection}} \"{{slug}}\""
+    uploadMedia: "content: upload \"{{path}}\""
+    deleteMedia: "content: delete \"{{path}}\""
+    openAuthoring: 'content: {{message}}'
+
+local_backend: true
+
+media_folder: static/img
+public_folder: /img
+
+collections:
+  - name: pages
+    label: Pages
+    description: Set images, titles, text and HTML content for various sections of home and about pages.
+    format: json
+    delete: false
+    editor:
+      preview: false
+    files:
+      - name: homepage
+        label: Homepage
+        file: content/pages/home.json
+        description: Content management for various sections of the homepage.
+        fields:
+          - { label: Hero content, name: hero_content, widget: code, default_language: html, output_code_only: true, allow_language_selection: false }
+          - { label: About content, name: about_content, widget: code, default_language: html, output_code_only: true, allow_language_selection: false }
+          - { label: Works title, name: works_title, widget: string }
+          - { label: Playground title, name: playground_title, widget: string }
+          - { label: Playground content, name: playground_content, widget: code, default_language: html, output_code_only: true, allow_language_selection: false }
+          - label: Playground Images
+            name: playground_images
+            label_singular: Playground Image
+            widget: list
+            hint: Use 16:9 images
+            field: { label: Image, name: image, widget: image }
+          - { label: Footer content, name: footer_content, widget: code, default_language: html, output_code_only: true, allow_language_selection: false }
+
+      - name: about
+        label: About
+        file: content/pages/about.json
+        description: Content management for various sections of the about page.
+        fields:
+          - { label: Hero content, name: hero_content, widget: code, default_language: html, output_code_only: true, allow_language_selection: false }
+          - { label: About image, name: about_image, widget: image, hint: Use 2:3 images  }
+          - { label: About content, name: about_content, widget: code, default_language: html, output_code_only: true, allow_language_selection: false }
+          - { label: Footer content, name: footer_content, widget: code, default_language: html, output_code_only: true, allow_language_selection: false }
+
+      - name: works
+        label: My Works
+        label_singular: Work
+        description: Add, update and remove your works. These will show up in the works section of the homepage.
+        format: json
+        create: true
+        file: content/works.json
+        editor:
+          preview: false
+        fields:
+          - label: Works
+            name: works
+            label_singular: Work
+            widget: list
+            hint: Add, update, sort and remove your works. These will show up in the works section of the homepage.
+            fields:
+              - { label: Name, name: name, widget: string }
+              - { label: Description, name: description, widget: text }
+              - { label: Background Color, name: color, widget: string, hint:  Any valid CSS color value }
+              - label: Images
+                name: images
+                label_singular: Image
+                widget: list
+                required: true
+                hint: Use 16:9 images
+                field: { label: Image, name: image, widget: image }
+              - { label: Tags, name: tags, widget: string }
+              - { label: Role, name: role, widget: string }
+              - label: Link
+                name: link
+                widget: object
+                fields:
+                  - { label: Text, name: text, widget: string }
+                  - { label: URL, name: url, widget: string }
+              - { label: Additional information, name: additional_information, widget: text }
+              - label: Case Study
+                name: case_study
+                widget: object
+                fields:
+                  - { label: Text, name: text, widget: string, required: false }
+                  - { label: Link, name: link, widget: string, required: false }
+
+  - name: misc
+    label: Miscellaneous
+    description: Manage works ordering; links to your blog, resume, social media; email address, etc.
+    format: json
+    delete: false
+    editor:
+      preview: false
+    files:
+      - name: links_social
+        label: Links and Social Media
+        file: content/misc.json
+        fields:
+          - { label: Email Address, name: email, widget: string }
+          - { label: Phone, name: phone, widget: string, hint: Used for WhatsApp link. Include the 91 prefix. }
+          - { label: Blog Link, name: blog_link, widget: string }
+          - { label: Resume Link, name: resume_link, widget: string }
+          - { label: Instagram, name: instagram, widget: string }
+          - { label: LinkedIn, name: linkedin, widget: string }
